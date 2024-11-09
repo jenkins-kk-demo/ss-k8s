@@ -1,0 +1,33 @@
+name: agent-pipeline-test
+on:
+  workflow_dispatch:
+env:
+  MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
+#   # This item has no matching transformer
+#   MONGO_DB_CREDS:
+#   # This item has no matching transformer
+#   MONGO_USERNAME:
+#   # This item has no matching transformer
+#   MONGO_PASSWORD:
+#   # This item has no matching transformer
+#   SONAR_SCANNER_HOME: "${'sonarqube-scanner-610'}"
+#   # This item has no matching transformer
+#   GITEA_TOKEN:
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: sh
+      shell: bash
+      run: npm i
+  test:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: sh
+      shell: bash
+      run: npm test
