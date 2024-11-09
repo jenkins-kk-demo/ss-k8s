@@ -3,36 +3,25 @@ on:
   push:
 env:
   MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
-  MONGO_USERNAME: ${{secrets.MONGO_USERNAME}}
-  MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
-#   # This item has no matching transformer
-#   MONGO_DB_CREDS:
-#   # This item has no matching transformer
-#   MONGO_USERNAME:
-#   # This item has no matching transformer
-#   MONGO_PASSWORD:
-#   # This item has no matching transformer
-#   SONAR_SCANNER_HOME: "${'sonarqube-scanner-610'}"
-#   # This item has no matching transformer
-#   GITEA_TOKEN:
+  MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
 jobs:
   install:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
       uses: actions/checkout@v4.1.0
-    - name: sh2312
-      shell: bash
-      run: node -v
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v4.1.0
-      with:
-        node-version: 20
-  
+
     - name: sh
       shell: bash
       run: npm i
 
     - name: sh
+      env:
+        MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
+        MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
+        MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
       shell: bash
       run: npm test
